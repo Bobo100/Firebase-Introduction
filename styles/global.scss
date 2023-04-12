@@ -35,9 +35,9 @@ body {
 
 a {
     text-decoration: none;
-    color: #61dafb;
+    color: $color;
 
-    border: 1px solid #61dafb;
+    border: 1px solid $color;
     padding: 10px;
 
     display: inline-block;
@@ -45,8 +45,18 @@ a {
     transition: all 0.2s ease-in-out;
 
     &:hover {
-        background-color: #61dafb;
+        background-color: $color;
         color: $navbar-bg-color;
+    }
+
+    &.active {
+        background-color: $color;
+        color: $navbar-bg-color;
+
+        &:hover {
+            background-color: #26c8f5;
+            color: $navbar-bg-color;
+        }
     }
 }
 
