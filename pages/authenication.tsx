@@ -30,7 +30,7 @@ function AuthenicationPage() {
                     下面我們會介紹如何使用Firebase的身分驗證功能。
                 </p>
 
-                <h4 className="text-xl my-4 font-bold border p-2">第一步：開啟Firebase身分驗證</h4>
+                <h2 className="text-xl my-4 font-bold border p-2">第一步：開啟Firebase身分驗證</h2>
                 <p className="my-4">
                     首先，我們要先開啟Firebase的身分驗證功能，這樣才能使用Firebase的身分驗證功能。
                     你可以從左邊的導覽列點選「建構」，然後點選「Authenication身分驗證」，接著點選「開始使用」。
@@ -46,7 +46,7 @@ function AuthenicationPage() {
                 <Image src={authenication_04} alt="authenication_04" className="my-4" width={750} />
                 <Image src={authenication_05} alt="authenication_05" className="my-4" width={750} />
 
-                <h4 className="text-xl my-4 font-bold border p-2">第二步：初始化Firebase</h4>
+                <h2 className="text-xl my-4 font-bold border p-2">第二步：初始化Firebase</h2>
                 <p className="my-4">接著，我們要在我們的程式碼中使用Firebase的身分驗證功能，首先我們要先安裝firebase的套件。(前面安裝過了，你忘記的話這邊趕快再安裝)</p>
                 <Prism language="javascript" style={vscDarkPlus}>
                     {`npm install firebase`}
@@ -79,7 +79,7 @@ export const auth = getAuth(app)`}
 
                 <p>到這邊我們就完成了初始化的部分，接著我們就可以使用firebase提供的API來使用身分驗證的功能了。</p>
 
-                <h4 className="text-xl my-4 font-bold border p-2">第三步：建立一個頁面(使用Firebase身分驗證)</h4>
+                <h2 className="text-xl my-4 font-bold border p-2">第三步：建立一個頁面(使用Firebase身分驗證)</h2>
                 <p>所以，我們會需要有三個功能，分別是註冊、登入和登出。</p>
                 <p className="text-lg my-4 font-bold border p-2 inline-block bg-title text-black">註冊</p>
                 <p className="my-4">首先，我們先建立一個SignUpComponents，這個Components會有兩個欄位，一個是email，一個是password，然後有一個註冊的按鈕。</p>
@@ -353,16 +353,21 @@ export default SignOutComponents`}
                 <p className="my-4">到這邊我們就完成註冊、登入和登出的功能，只要把這些component引用到頁面中，就可以使用了。</p>
 
                 <p className="my-4">下面是完成後的範例：</p>
-                <a href="https://homework-07-sso-login.vercel.app/" target="_blank" rel="noopener" className="text-title">實作範例</a>
-                <a href="https://github.com/Bobo100/Homework-07-SSO-login" target="_blank" rel="noopener" className="text-title">完整程式碼</a>
+                <a href="https://homework-07-sso-login.vercel.app/" target="_blank" rel="noopener" className="text-black bg-title border-white font-semibold">實作範例</a>
 
                 <p className="my-4">但是，這還沒有完全完成，如果你把網站佈署好後，你會發現，你的網站不能使用google的登入功能，這是因為我們沒有設定身分驗證的網域，所以我們要來設定一下。</p>
-                <h4 className="text-xl my-4 font-bold border p-2">第四步：設定身分驗證的網域</h4>
+                <h2 className="text-xl my-4 font-bold border p-2">第四步：設定身分驗證的網域</h2>
                 <p className="my-4">在firebase的console中，點選左邊的Authentication，然後點選右邊的Setting，然後點選「新增網域」把你的網域加進去，然後點選「新增』。就完成啦！</p>
                 <Image src={authenication_06} alt="authenication_06" className="my-4" width={750} />
 
-                <h4 className="text-xl my-4 font-bold border p-2">第五步：移除多餘的步驟</h4>
+                <h2 className="text-xl my-4 font-bold border p-2">第五步：移除多餘的步驟</h2>
                 <p>前面可以看到我們在很多個地方都一直在驗證使用者是否有登入，但其實可以把這個步驟移動到最外層的Layout中，這樣就不用在每個頁面都寫一次驗證的步驟了。</p>
+                <p>這次我們會使用useContext來儲存使用者的資訊，然後每個要檢測的頁面都可以提取出來使用。</p>
+
+                <p className="my-4">最後完成後的範例：</p>
+                <a href="https://homework-07-sso-login.vercel.app/" target="_blank" rel="noopener" className="text-black bg-title border-white font-semibold">實作範例</a>
+                <a href="https://github.com/Bobo100/Homework-07-SSO-login" target="_blank" rel="noopener" className="text-black bg-title border-white font-semibold">完整程式碼</a>
+
 
             </div>
         </Layout>

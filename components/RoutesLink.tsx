@@ -9,7 +9,7 @@ const RouterLink = () => {
             <Link href="/authenication" className={router.pathname === "/authenication" ? "active" : ""}>Authenication</Link>
             <Link href="/authenication_update" className={router.pathname === "/authenication_update" ? "active" : ""}>Authenication Update</Link>
             <Link href="/storage" className={router.pathname === "/storage" ? "active" : ""}>Storage</Link>
-            <Link href="/firebase_database" className={router.pathname === "/firebase_database" ? "active" : ""}>Firebase Database</Link>
+            <Link href="/firestore_database" className={router.pathname === "/firestore_database" ? "active" : ""}>Firebase Database</Link>
             <Link href="/realtime_database" className={router.pathname === "/realtime_database" ? "active" : ""}>RealTime Database</Link>
 
         </>
