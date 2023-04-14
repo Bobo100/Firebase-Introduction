@@ -4,6 +4,8 @@ import Image from "next/image";
 
 import storage_01 from '../public/images/storage/storage_1.png';
 import storage_02 from '../public/images/storage/storage_2.png';
+import storage_03 from '../public/images/storage/storage_3.png';
+import storage_04 from '../public/images/storage/storage_4.png';
 
 function StoragePage() {
     return (
@@ -34,9 +36,13 @@ function StoragePage() {
                 <p className="mt-4">因為我們等等需要測試，所以請點選「測試模式」，然後點選「繼續」。</p>
                 <Image src={storage_02} alt="storage_02" className="my-4" width={750} />
 
+                <h2 className="text-2xl font-bold mt-4">第三步：選擇地區</h2>
+                <p className="mt-4">但是我們使用免費的版本，所以我們就只能使用當初專案選擇的地區，所以就直接「完成」。</p>
+                <Image src={storage_03} alt="storage_03" className="my-4" width={750} />
 
-
-
+                <h2 className="text-2xl font-bold mt-4">第四步：上傳檔案</h2>
+                <p className="mt-4">接著我們就可以開始上傳檔案了，點選「上傳檔案」，然後選擇你要上傳的檔案(上傳檔案旁邊也可以選擇要不要建立資料夾)。</p>
+                <Image src={storage_04} alt="storage_04" className="my-4" width={750} />
 
             </div>
         </Layout>
