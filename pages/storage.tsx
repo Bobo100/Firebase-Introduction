@@ -290,7 +290,7 @@ const downloadByURL = () => {
                 <p className="mt-4">結果如下：<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4" onClick={downloadByURL}>下載檔案</button></p>
                 {downloadURL && <img src={downloadURL} alt="downloadURL" className="my-4" width={500} />}
 
-            
+
                 <h2 className="text-2xl font-bold mt-4">那我們完成在網頁端下載，當然也可以在網頁端上傳檔案，也可以列出你的檔案list，這些都是firebase提供的API。</h2>
                 <h2 className="text-2xl font-bold mt-4">上傳檔案</h2>
                 <p className="mt-4">你可以選擇要使用string、blob、File或Byte Array上傳，我這邊使用string上傳。</p>
@@ -353,6 +353,9 @@ const listAllFilesRecursive = (listRef: StorageReference) => {
 
                 <h2 className="text-2xl font-bold mt-4">刪除檔案</h2>
 
+
+                <h1 className="text-3xl font-bold mt-4">但有一個大問題，當我們在前端使用firebase的API，那些金鑰是無法被保護的，因為我們是在前端使用，所以任何人都可以看到你的金鑰，這樣就會有安全性的問題。</h1>
+                <h2 className="text-2xl font-bold mt-4">解決方法：使用後端，把資料傳給後端，後端再使用firebase的API，這樣就可以保護你的金鑰。</h2>
             </div>
         </Layout>
     )
