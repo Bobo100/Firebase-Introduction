@@ -4,12 +4,12 @@ import Image from 'next/image';
 import { Prism } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
-import appcheck_01 from '../public/images/app check/app check_1.png';
-import appcheck_02 from '../public/images/app check/app check_2.png';
-import appcheck_03 from '../public/images/app check/app check_3.png';
-import appcheck_04 from '../public/images/app check/app check_4.png';
-import appcheck_05 from '../public/images/app check/app check_5.png';
-import appcheck_06 from '../public/images/app check/app check_6.png';
+import appcheck_01 from "../public/images/app check/app check_1.png";
+import appcheck_02 from "../public/images/app check/app check_2.png";
+import appcheck_03 from "../public/images/app check/app check_3.png";
+import appcheck_04 from "../public/images/app check/app check_4.png";
+import appcheck_05 from "../public/images/app check/app check_5.png";
+import appcheck_06 from "../public/images/app check/app check_6.png";
 
 function AppCheckPage() {
     return (
