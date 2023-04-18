@@ -150,7 +150,20 @@ function StoragePage() {
 
                 <h2 className="text-2xl font-bold mt-4">第二步：建立Storage</h2>
                 <p className="mt-4">因為我們等等需要測試，所以請點選「測試模式」，然後點選「繼續」。</p>
+                <p className="mt-4 text-xl font-semibold text-red-600">請注意：當你正式使用的時候請不要使用測試模式，因為測試模式下對所有人都開放(尤其是可以寫入)，會非常危險。</p>
                 <Image src={storage_02} alt="storage_02" className="my-4" width={750} />
+
+                <p className="mt-4">因為我們前面有學過身分驗證，也可以設定只有登入的人才能使用Storage。那這部分我會移到最後面在實作，前面就是以最方便的情況(大家都可以寫入)來實作。</p>
+                <Prism language="javascript" style={vscDarkPlus}>
+                    {`service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      // 只允許已經通過身份驗證的用戶進行讀寫
+      allow read, write: if request.auth.uid != null;
+    }
+  }
+}`}
+                </Prism>
 
                 <h2 className="text-2xl font-bold mt-4">第三步：選擇地區</h2>
                 <p className="mt-4">但是我們使用免費的版本，所以我們就只能使用當初專案選擇的地區，所以就直接「完成」。</p>
@@ -243,6 +256,16 @@ setHttpsReference(httpsReference)`}
     }
 ]`}
                 </Prism>
+                <p className="mt-4">這個檔案的意思是</p>
+                <ul className="list-disc list-inside">
+                    <li>origin: 值為一個陣列(Array)，列出允許跨域訪問的網域，這裡設定為 *，表示接受任何來源。</li>
+                    <li>method: 值為一個陣列(Array)，列出允許跨域訪問的方法，這裡設定為 GET，表示接受 GET 方法。(如果使用其他方法，例如 POST，會出現錯誤)</li>
+                    <li>responseHeader: 值為一個陣列(Array)，列出允許跨域訪問的回應標頭，這裡設定為 Content-Type，表示接受 Content-Type 標頭。</li>
+                    <li>maxAgeSeconds: 值為一個整數，設定本次設置的有效時間(秒)。這裡設定為 3600 秒，即 1 小時。</li>
+                </ul>
+
+                <p className="mt-4">那比較有疑問的可能會是為什麼只要用GET就好，因為Firebase Storage 提供了對象存儲解決方案，讓你可以在雲端存儲和維護大量的數據文件。通常情況下，對於圖片、視頻等媒體資源的訪問，我們只需要使用 GET 方法即可實現。因為 GET 方法本質上是一種只讀操作，不會對資源進行修改的操作，而且也不會產生副作用。</p>
+                <p className="mt-4">相反，如果使用 POST、PUT、PATCH、DELETE 等方法，則會對資源進行修改，甚至會產生副作用，這些方法都需要進行身份驗證，才能夠正常使用。</p>
 
                 <p className="mt-4">新增完成後，最後我們要執行一行指令</p>
                 <Prism language="javascript" style={vscDarkPlus}>
@@ -353,9 +376,14 @@ const listAllFilesRecursive = (listRef: StorageReference) => {
 
                 <h2 className="text-2xl font-bold mt-4">刪除檔案</h2>
 
+                <p className="my-4 p-2 border-2 border-title font-semibold bg-black">但有一個大問題，當我們在前端使用firebase的API，那些金鑰是無法被保護的，因為我們是在前端使用，所以任何人都可以看到你的金鑰，這樣就會有安全性的問題。所以，我們必須寫一個好的規則(前面那個測試版部分要修改)，甚至你可以不要使用前端的API作法，而是改成以後端的方式來使用firebase的API，這樣就可以保護你的金鑰。</p>
+                <p className="mt-4">我們這邊也簡短說一下前後端在使用上的差異，主要會是判斷的東西，假如今天的內容需要快速且簡單，那只要使用前端就好，但假如今天的內容需要安全性，那就必須使用後端，來提高我們的安全性。</p>
+                <p className="mt-4">普遍來說，註冊登入系統可以不需要後端，但是如果你的內容需要安全性，那就必須使用後端，來提高我們的安全性。</p>
 
-                <h1 className="text-3xl font-bold mt-4">但有一個大問題，當我們在前端使用firebase的API，那些金鑰是無法被保護的，因為我們是在前端使用，所以任何人都可以看到你的金鑰，這樣就會有安全性的問題。</h1>
-                <h2 className="text-2xl font-bold mt-4">解決方法：使用後端，把資料傳給後端，後端再使用firebase的API，這樣就可以保護你的金鑰。</h2>
+                <h2 className="text-2xl font-bold mt-4">規則</h2>
+                
+                <h2 className="text-2xl font-bold mt-4">後端API要如何使用</h2>
+
             </div>
         </Layout>
     )

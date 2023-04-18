@@ -106,9 +106,9 @@ const SignUpComponents = () => {
         await createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in
-                const user = userCredential.user;
-                alert('註冊成功！')
+                const user = userCredential.user;                
                 router.push('/')
+                alert('註冊成功！')
             })
             .catch((error) => {
                 const errorCode = error.code;
