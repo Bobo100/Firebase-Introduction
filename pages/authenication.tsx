@@ -80,13 +80,13 @@ export const auth = getAuth(app)`}
 
                 <h2 className="text-xl my-4 font-bold border p-2">第三步：建立一個頁面(使用Firebase身分驗證)</h2>
                 <p>所以，我們會需要有三個功能，分別是註冊、登入和登出。</p>
-                <p className="text-lg my-4 font-bold border p-2 inline-block bg-title text-black">註冊</p>
+                <p className="text-lg my-4 font-bold border p-2 inline-block bg-blue-500 text-white">註冊</p>
                 <p className="my-4">首先，我們先建立一個SignUpComponents，這個Components會有兩個欄位，一個是email，一個是password，然後有一個註冊的按鈕。</p>
                 <p className="my-4">我們使用了useState來管理email和password的狀態，然後使用了onSubmit來處理註冊的邏輯。</p>
                 <p className="my-4">在onSubmit裡面，我們使用了firebase的createUserWithEmailAndPassword來處理註冊的邏輯，這個API會回傳一個promise，所以我們可以使用async/await來處理。</p>
                 <p className="my-4">如果註冊成功，我們會跳轉到首頁，如果失敗，我們會跳出一個alert告訴使用者註冊失敗。</p>
 
-                <p className="text-lg my-4 font-bold border p-2 inline-block bg-title text-black">補充</p>
+                <p className="text-lg my-4 font-bold border p-2 inline-block bg-blue-500 text-white">補充</p>
                 <p className="my-4">不會有google註冊，因為google註冊直接和google登入綁在一起，使用google登入的時候，如果沒有帳號的話，會自動幫你註冊一個帳號。</p>
 
                 <CopyToClipboard>
@@ -172,7 +172,7 @@ const SignUpComponents = () => {
 export default SignUpComponents`}
                 </CopyToClipboard >
 
-                <p className="text-lg my-4 font-bold border p-2 inline-block bg-title text-black">登入</p>
+                <p className="text-lg my-4 font-bold border p-2 inline-block bg-blue-500 text-white">登入</p>
                 <p className="my-4">接著是登入，我們建立兩個SignInComponents，一個是屬於帳號密碼登入，一個是屬於Google登入。</p>
                 <p className="my-4 font-bold border p-2 inline-block bg-title text-black">帳號密碼登入</p>
                 <p className="my-4">首先，我們先來看帳號密碼登入的邏輯，這邊我們使用了useState來管理email和password的狀態，然後使用了onSubmit來處理登入的邏輯。</p>
@@ -320,7 +320,7 @@ export default SignInComponents_Google`}
                 </CopyToClipboard >
                 <p className="my-4">到這邊，我們完成了登入的部分，接著我們來看登出的部分。</p>
 
-                <p className="text-lg my-4 font-bold border p-2 inline-block bg-title text-black">登出</p>
+                <p className="text-lg my-4 font-bold border p-2 inline-block bg-blue-500 text-white">登出</p>
                 <p className="my-4">登出的部分，我們建立一個SignOutComponents，這個Components會有一個登出的按鈕，當使用者按下登出按鈕時，就會呼叫signOut這個API，這個API會傳入一個參數，就是auth，這個API會回傳一個promise，如果登出成功，就會回傳一個void，如果登出失敗，就會回傳一個error。</p>
                 <CopyToClipboard>
                     {`import { signOut } from "firebase/auth"
@@ -352,7 +352,7 @@ export default SignOutComponents`}
                 <p className="my-4">到這邊我們就完成註冊、登入和登出的功能，只要把這些component引用到頁面中，就可以使用了。</p>
 
                 <p className="my-4">下面是完成後的範例：</p>
-                <a href="https://homework-07-sso-login.vercel.app/" target="_blank" rel="noopener" className="text-black bg-title border-white font-semibold">實作範例</a>
+                <a href="https://homework-07-sso-login.vercel.app/" target="_blank" rel="noopener" className="text-black bg-title border-white font-semibold hover:bg-blue-500">實作範例</a>
 
                 <p className="my-4">但是，這還沒有完全完成，如果你把網站佈署好後，你會發現，你的網站不能使用google的登入功能，這是因為我們沒有設定身分驗證的網域，所以我們要來設定一下。</p>
                 <h2 className="text-xl my-4 font-bold border p-2">第四步：設定身分驗證的網域</h2>
@@ -364,8 +364,8 @@ export default SignOutComponents`}
                 <p>這次我們會使用useContext來儲存使用者的資訊，然後每個要檢測的頁面都可以提取出來使用。</p>
 
                 <p className="my-4">最後完成後的範例：</p>
-                <a href="https://homework-07-sso-login.vercel.app/" target="_blank" rel="noopener" className="text-black bg-title border-white font-semibold">實作範例</a>
-                <a href="https://github.com/Bobo100/Homework-07-SSO-login" target="_blank" rel="noopener" className="text-black bg-title border-white font-semibold">完整程式碼</a>
+                <a href="https://homework-07-sso-login.vercel.app/" target="_blank" rel="noopener" className="text-black bg-title border-white font-semibold hover:bg-blue-500">實作範例</a>
+                <a href="https://github.com/Bobo100/Homework-07-SSO-login" target="_blank" rel="noopener" className="text-black bg-title border-white font-semibold hover:bg-blue-500">完整程式碼</a>
 
 
             </div>

@@ -100,17 +100,17 @@ function FirestoreDataBasePage() {
                 </ul>
 
                 <p className="my-4">下面我們會介紹如何使用Firestore Database。</p>
-                <h2 className="text-xl my-4 font-bold border p-2">第一步：開啟Firestore Database功能</h2>
+                <h2 className="text-2xl font-bold mt-4">第一步：開啟Firestore Database功能</h2>
                 <p className="my-4">首先，我們需要開啟Firestore Database功能，這樣我們才能使用Firestore Database。
                     你可以從左邊的導覽列點選「建構」，然後點選「Firestore Database」，接著點選「建立資料庫」。
                 </p>
                 <Image src={firestore_database_01} alt="firestore_database_01" className="my-4" width={750} />
 
-                <h2 className="text-xl my-4 font-bold border p-2">第二步：建立資料庫</h2>
+                <h2 className="text-2xl font-bold mt-4">第二步：建立資料庫</h2>
                 <p className="my-4">因為我們等等需要測試，所以請點選「測試模式」，然後點選「繼續」。</p>
                 <Image src={firestore_database_02} alt="firestore_database_02" className="my-4" width={750} />
 
-                <h2 className="text-xl my-4 font-bold border p-2">第三步：選擇地區</h2>
+                <h2 className="text-2xl font-bold mt-4">第三步：選擇地區</h2>
                 <p className="my-4">接著，我們需要選擇地區，選擇與你的網站上架的地區最接近的地區，這樣可以讓你的網站的速度更快。選好後，就可以點選「啟用」。</p>
                 <Image src={firestore_database_03} alt="firestore_database_03" className="my-4" width={750} />
 
@@ -119,13 +119,13 @@ function FirestoreDataBasePage() {
                 <p className="my-4">在Firestore Database中資料庫是以集合（Collection）為單位，而集合中的資料是以文件（Document）為單位。</p>
                 <p className="my-4">集合就像是一個資料庫，而文件就像是一個資料表。每個集合可以包含許多文件，而每個文件則可以包含欄位和各種類型的資料。集合類似於 SQL 資料庫中的表格，而文件類似於資料表中的紀錄。但是，Firestore Database 允許您在文件中建立子集合以更好地組織和存儲資料。</p>
                 <p className="my-4">差不多了解這樣就好，我們繼續。</p>
-                <h2 className="text-xl my-4 font-bold border p-2">第四步：建立集合</h2>
+                <h2 className="text-2xl font-bold mt-4">第四步：建立集合</h2>
                 <p className="my-4">接著，我們需要建立集合。集合就像是一個資料表，我們可以把資料放在裡面，然後我們可以透過API來取得資料，或是修改資料。</p>
                 <Image src={firestore_database_04} alt="firestore_database_04" className="my-4" width={750} />
                 <p className="my-4">點選「建立集合」，然後輸入集合名稱，例如：users，然後點選「建立」。</p>
                 <Image src={firestore_database_05} alt="firestore_database_05" className="my-4" width={750} />
 
-                <h2 className="text-xl my-4 font-bold border p-2">第五步：建立文件</h2>
+                <h2 className="text-2xl font-bold mt-4">第五步：建立文件</h2>
                 <p className="my-4">接著，我們需要建立文件，文件都是在集合中的，所以我們需要先建立集合，然後才能建立文件。文件就像是一個資料表中的一筆資料，我們可以把資料放在裡面，然後我們可以透過API來取得資料，或是修改資料。</p>
                 <p className="my-4">所以，文件可以去設定一個使用者的資料，例如：名字、電話、地址等等。</p>
                 <p className="my-4">支援的type有：</p>
@@ -148,7 +148,10 @@ function FirestoreDataBasePage() {
                 <p className="my-4">就可以看到我們新增了一筆資料。</p>
                 <Image src={firestore_database_08} alt="firestore_database_08" className="my-4" width={750} />
 
-                <h2 className="text-xl my-4 font-bold border p-2">第六步：讓網站可以存取Firestore Database(包含新增、修改、刪除、取得資料)</h2>
+                <h2 className="text-2xl font-bold mt-4">第六步：讓網站可以存取Firestore Database(包含新增、修改、刪除、取得資料)</h2>
+                <p className="my-4">我有做一個網站可以已經實現了下面談到的功能，但你必須註冊並登入才可以使用，你不想測試的話，就直接看下面的程式碼。</p>
+                <a href="https://homework-07-sso-login.vercel.app/" target="_blank" rel="noopener" className="text-black bg-title border-white font-semibold hover:bg-blue-500">實作範例</a>
+
                 <h3 className="text-lg my-4 font-bold border p-2">取得資料</h3>
                 <p className="my-4">首先，先來取得資料。流程會是先抓取Collection的位置，之後再抓取Document的位置，最後再抓取資料。</p>
                 <p className="my-4">我們可以透過firebase提供的api來進行，使用collection()來抓取Collection的位置，collection後面填上我們最一開始初始化的db，然後填上我們要抓取的Collection名稱，例如：First。</p>
@@ -242,6 +245,8 @@ const updateDocument = async () => {
                 </CopyToClipboard>
                 {/* <button onClick={updateDocument} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">修改資料</button> */}
 
+                <h2 className="text-2xl font-bold mt-4">一些組合拳法</h2>
+                <p className="my-4">我們前面有學過Storage(可以儲存照片)，我們可以在firestore database中儲存照片的路徑，然後在前端抓取照片。</p>
 
             </div>
         </Layout >

@@ -86,10 +86,10 @@ const onUpdatePassword = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
 }`}
                 </CopyToClipboard>
 
-
+                <p className="my-4">那我們完成後的所有功能，都在下面這個範例</p>
                 <a href="https://homework-07-sso-login.vercel.app/" target="_blank" rel="noopener" className="text-black bg-title border-white font-semibold">實作範例</a>
 
-
+                <p className="my-4">還有很多功能，之後會再補上，像是忘記密碼，重設密碼，這些都是我們可以學的。</p>
             </div>
         </Layout>
     )
