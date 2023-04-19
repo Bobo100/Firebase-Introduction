@@ -1,8 +1,6 @@
 import Head from "next/head";
 import Layout from '../components/layout';
 import Image from "next/image";
-import { Prism } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 import authenication_01 from "../public/images/authenication/authenication_1.png";
 import authenication_02 from "../public/images/authenication/authenication_2.png";
@@ -10,6 +8,7 @@ import authenication_03 from "../public/images/authenication/authenication_3.png
 import authenication_04 from "../public/images/authenication/authenication_4.png";
 import authenication_05 from "../public/images/authenication/authenication_5.png";
 import authenication_06 from "../public/images/authenication/authenication_6.png";
+import { CopyToClipboard } from "../components/Code/CopyToClipboard";
 
 function AuthenicationPage() {
     return (
@@ -48,11 +47,11 @@ function AuthenicationPage() {
 
                 <h2 className="text-xl my-4 font-bold border p-2">第二步：初始化Firebase</h2>
                 <p className="my-4">接著，我們要在我們的程式碼中使用Firebase的身分驗證功能，首先我們要先安裝firebase的套件。(前面安裝過了，你忘記的話這邊趕快再安裝)</p>
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {`npm install firebase`}
-                </Prism >
+                </CopyToClipboard >
                 <p className="my-4">接著，我們初始化firebase，這樣我們的程式碼才能使用firebase的功能。(也一樣是前面的步驟)</p>
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {`import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
@@ -75,7 +74,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 // getAuth()是firebase提供的一個API，可以讓我們使用身分驗證的功能
 export const auth = getAuth(app)`}
-                </Prism >
+                </CopyToClipboard >
 
                 <p>到這邊我們就完成了初始化的部分，接著我們就可以使用firebase提供的API來使用身分驗證的功能了。</p>
 
@@ -90,7 +89,7 @@ export const auth = getAuth(app)`}
                 <p className="text-lg my-4 font-bold border p-2 inline-block bg-title text-black">補充</p>
                 <p className="my-4">不會有google註冊，因為google註冊直接和google登入綁在一起，使用google登入的時候，如果沒有帳號的話，會自動幫你註冊一個帳號。</p>
 
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {`import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../lib/init-firebase';
@@ -171,7 +170,7 @@ const SignUpComponents = () => {
 }
 
 export default SignUpComponents`}
-                </Prism >
+                </CopyToClipboard >
 
                 <p className="text-lg my-4 font-bold border p-2 inline-block bg-title text-black">登入</p>
                 <p className="my-4">接著是登入，我們建立兩個SignInComponents，一個是屬於帳號密碼登入，一個是屬於Google登入。</p>
@@ -179,7 +178,7 @@ export default SignUpComponents`}
                 <p className="my-4">首先，我們先來看帳號密碼登入的邏輯，這邊我們使用了useState來管理email和password的狀態，然後使用了onSubmit來處理登入的邏輯。</p>
                 <p className="my-4">我們使用API signInWithEmailAndPassword，這個API會傳入兩個參數，第一個是auth，第二個是email和password，這個API會回傳一個promise，如果登入成功，就會回傳一個user，如果登入失敗，就會回傳一個error。</p>
 
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {`import React, { useEffect, useState } from 'react';
 import { User, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../lib/init-firebase';
@@ -263,11 +262,11 @@ const SignInComponents_Password = () => {
 }
 
 export default SignInComponents_Password`}
-                </Prism >
+                </CopyToClipboard >
                 <p className="my-4 font-bold border p-2 inline-block bg-title text-black">Google登入</p>
                 <p className="my-4">接著，我們來看Google登入的邏輯，直接使用API signInWithPopup，這個API會傳入兩個參數，第一個是auth，第二個是一個provider，這個API會回傳一個promise，如果登入成功，就會回傳一個user，如果登入失敗，就會回傳一個error。</p>
                 <p className="my-4">在這個API裡面可以去設定要使用哪個供應商登入，如果要使用google，就要寫GoogleAuthProvider，如果要使用facebook，就要寫FacebookAuthProvider</p>
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {`import React, { useEffect, useState } from 'react';
 import { GoogleAuthProvider, User, signInWithPopup } from 'firebase/auth';
 import { auth } from '../lib/init-firebase';
@@ -318,12 +317,12 @@ const SignInComponents_Google = () => {
 }
 
 export default SignInComponents_Google`}
-                </Prism >
+                </CopyToClipboard >
                 <p className="my-4">到這邊，我們完成了登入的部分，接著我們來看登出的部分。</p>
 
                 <p className="text-lg my-4 font-bold border p-2 inline-block bg-title text-black">登出</p>
                 <p className="my-4">登出的部分，我們建立一個SignOutComponents，這個Components會有一個登出的按鈕，當使用者按下登出按鈕時，就會呼叫signOut這個API，這個API會傳入一個參數，就是auth，這個API會回傳一個promise，如果登出成功，就會回傳一個void，如果登出失敗，就會回傳一個error。</p>
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {`import { signOut } from "firebase/auth"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -348,7 +347,7 @@ const SignOutComponents = () => {
 }
 
 export default SignOutComponents`}
-                </Prism >
+                </CopyToClipboard >
 
                 <p className="my-4">到這邊我們就完成註冊、登入和登出的功能，只要把這些component引用到頁面中，就可以使用了。</p>
 

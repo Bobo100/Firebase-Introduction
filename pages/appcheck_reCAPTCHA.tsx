@@ -1,8 +1,6 @@
 import Head from "next/head";
 import Layout from '../components/layout';
 import Image from 'next/image';
-import { Prism } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 import appcheck_01 from "../public/images/app check/app check_1.png";
 import appcheck_02 from "../public/images/app check/app check_2.png";
@@ -10,6 +8,7 @@ import appcheck_03 from "../public/images/app check/app check_3.png";
 import appcheck_04 from "../public/images/app check/app check_4.png";
 import appcheck_05 from "../public/images/app check/app check_5.png";
 import appcheck_06 from "../public/images/app check/app check_6.png";
+import { CopyToClipboard } from "../components/Code/CopyToClipboard";
 
 function AppCheckPage() {
     return (
@@ -23,6 +22,7 @@ function AppCheckPage() {
                 </h1>
                 <p className="my-4">這裡我們要教你如何使用Firebase的App Check來防止惡意的使用者，這個功能是在Firebase 9.0.0才有的，所以如果你的專案還沒有升級到9.0.0，請先升級。</p>
                 <p className="my-4">我們會教你如何把reCAPTCHA加到你的專案中，這個功能可以讓你的使用者在登入或是註冊的時候，需要先通過reCAPTCHA的驗證，這樣就可以防止惡意的使用者。</p>
+                <p className="my-4">這邊也提供別人寫好的github連結<a className="m-2" href="https://github.com/kokou2kpadenou/recaptcha3-nextjs" target="_blank" rel="noopener">Github連結</a></p>
                 <h2 className="text-2xl font-bold mt-4">第一步：開啟App Check功能</h2>
                 <p className="my-4">首先我們要先開啟App Check功能，你可以從左邊的導覽列點選「建構」然後找到「App Check」，把它啟動起來</p>
                 <Image src={appcheck_01} alt="appcheck_01" className="my-4" width={750} />
@@ -63,21 +63,21 @@ function AppCheckPage() {
                 <h2 className="text-2xl font-bold mt-4">第五步：使用套件react-google-recaptcha-v3</h2>
                 <p className="my-4">首先我們要先安裝套件react-google-recaptcha-v3，這個套件可以讓我們很方便的使用reCAPTCHA。</p>
                 <p className="my-4">安裝指令：npm install react-google-recaptcha-v3</p>
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {`npm install react-google-recaptcha-v3`}
-                </Prism>
+                </CopyToClipboard>
 
                 <h2 className="text-2xl font-bold mt-4">第六步：將key放到.env.local上</h2>
                 <p className="my-4">接下來我們要將key放到.env.local上，這樣我們就可以在程式中使用了。</p>
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {`NEXT_PUBLIC_RECAPTCHA_SITE_KEY=你的site key
 RECAPTCHA_SECRET_KEY=你的secret key`}
-                </Prism>
+                </CopyToClipboard>
 
                 <h2 className="text-2xl font-bold mt-4">第七步：寫一個驗證的api</h2>
                 <p className="my-4">接下來我們要寫一個驗證的api，這個api會傳入token，然後我們會去跟reCAPTCHA的伺服器做驗證，看看這個token是不是有效的。</p>
                 <p className="my-4">如果是成功且分數大於0.5，我們就判斷為通過驗證，否則就判斷為失敗。</p>
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {` // pages/api/recaptcha.tsx
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -133,7 +133,7 @@ export default async function handler(
         });
     }
 }`}
-                </Prism>
+                </CopyToClipboard>
 
                 <h2 className="text-2xl font-bold mt-4">第八步：將登入步驟結合App Check</h2>
                 <p className="my-4">接下來我們要將登入步驟結合App Check，我們要在登入的時候，先通過reCAPTCHA的驗證，才可以登入。</p>
@@ -141,7 +141,7 @@ export default async function handler(
 
                 <p className="my-4">那前面我們要先在_app.tsx中去寫Provider，用意是要讓整個app都可以使用reCAPTCHA。</p>
 
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {` // _app.tsx
 import '../styles/global.scss'
 import 'tailwindcss/tailwind.css'
@@ -173,12 +173,12 @@ function App({ Component, pageProps }: AppProps) {
 }
 
 export default App`}
-                </Prism>
+                </CopyToClipboard>
                 <p className="my-4">接下來我們要在登入的時候，先通過reCAPTCHA的驗證，才可以登入。</p>
                 <p className="my-4">程式碼部分如下：我解釋一下，首先是我們使用了套件react-google-recaptcha-v3提供的hook，這個hook可以讓我們很方便的使用reCAPTCHA。可以讓我們確定reCAPTCHA是有沒有存在的。</p>
                 <p className="my-4">然後當成功後我們會獲得json(因為我們設定的是傳遞json，在解析這個json看看回傳回來的是不是成功，如果成功我們就繼續執行驗證，否則就不執行)。</p>F
                 {/* <p className="my-4">我們還使用到了useCallback，這個hook可以讓我們在依賴的值改變時，才會重新建立這個function，否則就不會重新建立。</p> */}
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {` import React, { useCallback, useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../lib/init-firebase';
@@ -297,7 +297,7 @@ const SignInComponents_Password = () => {
 }
 
 export default SignInComponents_Password`}
-                </Prism>
+                </CopyToClipboard>
 
 
 

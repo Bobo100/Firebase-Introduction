@@ -1,8 +1,6 @@
 import Head from "next/head";
 import Layout from '../components/layout';
 import Image from "next/image";
-import { Prism } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 import storage_01 from '../public/images/storage/storage_1.png';
 import storage_02 from '../public/images/storage/storage_2.png';
@@ -21,8 +19,9 @@ import storage_14 from '../public/images/storage/storage_14.png';
 
 import { StorageReference, getDownloadURL, getStorage, listAll, ref, uploadBytes, uploadString } from "firebase/storage";
 import { storage } from "../lib/init-firebase";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import uuid from "react-uuid";
+import { CopyToClipboard } from "../components/Code/CopyToClipboard";
 
 function StoragePage() {
 
@@ -122,7 +121,10 @@ function StoragePage() {
             });
     }
 
-
+    const code = `function sayHello() {
+    console.log('Hello, world!');
+}
+sayHello();`
 
     return (
         <Layout>
@@ -154,8 +156,10 @@ function StoragePage() {
                 <Image src={storage_02} alt="storage_02" className="my-4" width={750} />
 
                 <p className="mt-4">因為我們前面有學過身分驗證，也可以設定只有登入的人才能使用Storage。那這部分我會移到最後面在實作，前面就是以最方便的情況(大家都可以寫入)來實作。</p>
-                <Prism language="javascript" style={vscDarkPlus}>
-                    {`service firebase.storage {
+
+                <CopyToClipboard>
+                    {` // 身分驗證通過才能讀寫
+service firebase.storage {
   match /b/{bucket}/o {
     match /{allPaths=**} {
       // 只允許已經通過身份驗證的用戶進行讀寫
@@ -163,7 +167,7 @@ function StoragePage() {
     }
   }
 }`}
-                </Prism>
+                </CopyToClipboard>
 
                 <h2 className="text-2xl font-bold mt-4">第三步：選擇地區</h2>
                 <p className="mt-4">但是我們使用免費的版本，所以我們就只能使用當初專案選擇的地區，所以就直接「完成」。</p>
@@ -187,13 +191,13 @@ function StoragePage() {
                 <p className="mt-4">還記得我們前面有在auth那邊教的有如何初始化Firebase嗎？</p>
                 <p className="mt-4">我們在那邊有教到，我們要先初始化Firebase，才能使用Firebase，Storage一樣必須有初始化，才能使用。</p>
                 <p className="mt-4">如果你前面有初始化過，就只需要新增兩行程式碼，就可以使用Storage了。</p>
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {` // init-firebase.tsx
 import { getStorage } from "firebase/storage";
 
 export const storage = getStorage(app);
 `}
-                </Prism>
+                </CopyToClipboard>
 
                 <h2 className="text-2xl font-bold mt-4">第七步：取得檔案的路徑</h2>
                 <p className="mt-4">接著我們要取得檔案的路徑，這樣我們才能取得檔案的下載網址。</p>
@@ -207,7 +211,7 @@ export const storage = getStorage(app);
                 <Image src={storage_06} alt="storage_06" className="my-4" />
 
                 <p className="mt-4">你都知道路徑後，就可以來抓取他們的路徑了。程式碼如下：</p>
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {`import { getStorage, ref } from "firebase/storage";
 import { storage } from "../lib/init-firebase";
 
@@ -224,7 +228,7 @@ setGsReference(gsReference)
 // Note that in the URL, characters are URL escaped!
 const httpsReference = ref(storage, 'https://firebasestorage.googleapis.com/b/bucket/o/images%20stars.jpg');
 setHttpsReference(httpsReference)`}
-                </Prism>
+                </CopyToClipboard>
 
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={createRef}>取得檔案路徑</button>
                 <p className="mt-4">請點選「檔案路徑」後，我們可以在下面看到，我們使用這三個方法取出來的路徑，都能夠順利成功！那再來就是取得檔案的下載網址了。</p>
@@ -245,7 +249,7 @@ setHttpsReference(httpsReference)`}
                 <p className="mt-4">進入到編輯器後，在左邊的位置去新增一個檔案，檔名為「cors.json」，然後複製下面的程式碼到檔案裡面。</p>
                 <Image src={storage_11} alt="storage_11" className="my-4" />
                 <Image src={storage_12} alt="storage_12" className="my-4" />
-                <Prism language="json" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {` // cors.json
 [
     {
@@ -255,7 +259,7 @@ setHttpsReference(httpsReference)`}
         "maxAgeSeconds": 3600
     }
 ]`}
-                </Prism>
+                </CopyToClipboard>
                 <p className="mt-4">這個檔案的意思是</p>
                 <ul className="list-disc list-inside">
                     <li>origin: 值為一個陣列(Array)，列出允許跨域訪問的網域，這裡設定為 *，表示接受任何來源。</li>
@@ -268,9 +272,9 @@ setHttpsReference(httpsReference)`}
                 <p className="mt-4">相反，如果使用 POST、PUT、PATCH、DELETE 等方法，則會對資源進行修改，甚至會產生副作用，這些方法都需要進行身份驗證，才能夠正常使用。</p>
 
                 <p className="mt-4">新增完成後，最後我們要執行一行指令</p>
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {`gsutil cors set cors.json gs://bucket`}
-                </Prism>
+                </CopyToClipboard>
                 <p className="mt-4">bucket是你的bucket名稱，前面我們有提到過，你的環境變數裡面也找的到，或是直接在firease的Storage裡面找也行。</p>
                 <p className="mt-4">我們需要先打開Terminal，然後輸入指令</p>
                 <Image src={storage_13} alt="storage_13" className="my-4" />
@@ -278,7 +282,7 @@ setHttpsReference(httpsReference)`}
 
                 <p className="mt-4">設定完成後，我們可以使用getDownloadURL()，這個函式(firebase提供的API)可以取得檔案的URL。你有網址後就能夠下載圖片或是讓圖片顯示在網頁上了。</p>
 
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {` const [downloadURL, setDownloadURL] = useState<string | null>(null);
 
 const downloadByURL = () => {
@@ -309,7 +313,7 @@ const downloadByURL = () => {
             console.log(error)
         });
 }`}
-                </Prism>
+                </CopyToClipboard>
                 <p className="mt-4">結果如下：<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4" onClick={downloadByURL}>下載檔案</button></p>
                 {downloadURL && <img src={downloadURL} alt="downloadURL" className="my-4" width={500} />}
 
@@ -317,7 +321,7 @@ const downloadByURL = () => {
                 <h2 className="text-2xl font-bold mt-4">那我們完成在網頁端下載，當然也可以在網頁端上傳檔案，也可以列出你的檔案list，這些都是firebase提供的API。</h2>
                 <h2 className="text-2xl font-bold mt-4">上傳檔案</h2>
                 <p className="mt-4">你可以選擇要使用string、blob、File或Byte Array上傳，我這邊使用string上傳。</p>
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {`const uploadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -333,14 +337,14 @@ const downloadByURL = () => {
     if (e.target.files && e.target.files[0])
         reader.readAsDataURL(e.target.files[0]);
 }`}
-                </Prism>
+                </CopyToClipboard>
                 <input type="file" onChange={uploadFile} placeholder="上傳檔案" className="my-4 border" accept="image/*" />
 
                 <h2 className="text-2xl font-bold mt-4">列出檔案</h2>
                 <p className="mt-4">列出檔案的API是listAll，這個函式會回傳一個promise，你可以使用then來取得結果。
                     可以看到回傳的結果有prefixes和items，prefixes是資料夾，items是檔案。
                     一次是一層，如果你有多層資料夾，你可以遞迴的方式去列出所有的檔案。</p>
-                <Prism language="javascript" style={vscDarkPlus}>
+                <CopyToClipboard>
                     {`const [allPaths, setAllPaths] = useState<string[]>([]);
 
 const showAll = () => {
@@ -366,7 +370,7 @@ const listAllFilesRecursive = (listRef: StorageReference) => {
             console.error(error);
         });
 }`}
-                </Prism>
+                </CopyToClipboard>
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4" onClick={showAll}>列出檔案(遞迴)</button>
                 <div className="">
                     {allPaths.map((path, index) => {
@@ -381,7 +385,20 @@ const listAllFilesRecursive = (listRef: StorageReference) => {
                 <p className="mt-4">普遍來說，註冊登入系統可以不需要後端，但是如果你的內容需要安全性，那就必須使用後端，來提高我們的安全性。</p>
 
                 <h2 className="text-2xl font-bold mt-4">規則</h2>
-                
+                <p className="mt-4">規則是firebase提供的一個功能，可以讓你自訂你的規則，讓你可以決定誰可以存取你的資料，前面我們就有寫一個版本是規定要有登入的使用者才可以存取</p>
+                <CopyToClipboard>
+                    {`service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      // 只允許已經通過身份驗證的用戶進行讀寫
+      allow read, write: if request.auth.uid != null;
+    }
+  }
+}`}
+                </CopyToClipboard>
+                <p className="mt-4">這邊我們要注意的是，這邊的規則是在storage的規則，如果有使用firestore，那就要在firestore的規則中也需要再設定一次。</p>
+
+
                 <h2 className="text-2xl font-bold mt-4">後端API要如何使用</h2>
 
             </div>
